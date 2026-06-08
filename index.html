@@ -14,9 +14,7 @@ fetch(JSON_URL)
 
   const vids = data.videos;
 
-  const name = decodeURIComponent(
-    window.location.pathname.split("/").pop()
-  );
+  const name = new URLSearchParams(location.search).get("v");
 
   let selected = vids.find(v => v.name === name);
 
@@ -37,7 +35,7 @@ video.addEventListener("click", () => {
 }, { once: true });
 
 video.addEventListener("timeupdate", () => {
-  if (!redirected && video.currentTime >= 30) {
+  if (!redirected && video.currentTime >= 30){
     redirected = true;
     window.location.href = DIRECT_LINK;
   }
