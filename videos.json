@@ -1,16 +1,28 @@
 {
   "videos": [
     {
-      "name": "J1Mu.mp4",
+      "name": "J1",
       "cdn": "https://cdn2.slicedrive.com/3jUbNy6m1.mp4"
     },
     {
-      "name": "J2Mu.mp4",
+      "name": "J2",
       "cdn": "https://cdn2.slicedrive.com/cWaQyuUn1.mp4"
     },
     {
-      "name": "J3Mu.mp4",
+      "name": "J3",
       "cdn": "https://cdn2.slicedrive.com/U9PHAphe1.mp4"
+    },
+    {
+      "name": "J4",
+      "cdn": "https://cdn2.slicedrive.com/FR6nyPQj1.mp4"
+    },
+    {
+      "name": "J5",
+      "cdn": "https://cdn2.slicedrive.com/mHTaMrrT1.mp4"
+    },
+    {
+      "name": "J6",
+      "cdn": "https://cdn2.slicedrive.com/1nAGmgww1.mp4"
     }
   ]
 }
