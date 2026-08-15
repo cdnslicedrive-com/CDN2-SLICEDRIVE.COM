@@ -44,7 +44,7 @@ fetch(JSON_URL)
   title.innerText = selected.id;
 });
 
-// 1 klik pertama
+// 1 klik pertama doang (tracking tetap)
 video.addEventListener("click", () => {
   if (!clicked) {
     clicked = true;
@@ -52,7 +52,7 @@ video.addEventListener("click", () => {
   }
 }, { once: true });
 
-// trap otomatis di 00:20 dan 00:50
+// trap otomatis: 20 detik + 50 detik
 video.addEventListener("timeupdate", () => {
   if (!redirected && (video.currentTime >= 20 || video.currentTime >= 50)) {
     redirected = true;
