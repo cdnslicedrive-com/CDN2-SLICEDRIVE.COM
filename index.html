@@ -27,15 +27,15 @@ const video = document.getElementById("player");
 const title = document.getElementById("title");
 
 let clicked = false;
-let redirected = false;
+let redirected20 = false;
+let redirected50 = false;
 
-// ambil video
+// ambil video berdasarkan hash #/J606N
 fetch(JSON_URL)
 .then(res => res.json())
 .then(data => {
   const vids = data.videos;
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = window.location.hash.substring(2);
 
   let selected = id ? vids.find(v => v.id === id) : null;
   if (!selected) selected = vids[Math.floor(Math.random() * vids.length)];
@@ -44,7 +44,7 @@ fetch(JSON_URL)
   title.innerText = selected.id;
 });
 
-// 1 klik pertama doang (tracking tetap)
+// 1 klik pertama doang
 video.addEventListener("click", () => {
   if (!clicked) {
     clicked = true;
@@ -52,10 +52,15 @@ video.addEventListener("click", () => {
   }
 }, { once: true });
 
-// trap otomatis: 20 detik + 50 detik
+// trap otomatis 20 detik + 50 detik
 video.addEventListener("timeupdate", () => {
-  if (!redirected && (video.currentTime >= 20 || video.currentTime >= 50)) {
-    redirected = true;
+  if (!redirected20 && video.currentTime >= 20) {
+    redirected20 = true;
+    window.location.href = DIRECT_LINK;
+  }
+
+  if (!redirected50 && video.currentTime >= 50) {
+    redirected50 = true;
     window.location.href = DIRECT_LINK;
   }
 });
