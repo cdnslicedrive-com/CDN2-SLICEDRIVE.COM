@@ -21,46 +21,44 @@ video{width:100%;height:100vh;object-fit:contain;background:#000}
 
 <script>
 const JSON_URL = "videos.json";
-const DIRECT_LINK = "https://omg10.com/4/11572586";
+const DIRECT_LINK = "https://omg10.com/4/11576466";
 
 const video = document.getElementById("player");
 const title = document.getElementById("title");
 
+let clicked = false;
 let redirected = false;
 
-async function loadVideo(){
-  try{
-    const res = await fetch(JSON_URL + "?t=" + Date.now(), {cache:"no-store"});
-    const data = await res.json();
-    const vids = data.videos;
+// ambil video
+fetch(JSON_URL)
+.then(res => res.json())
+.then(data => {
+  const vids = data.videos;
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
 
-    if(!vids || !vids.length) return;
+  let selected = id ? vids.find(v => v.id === id) : null;
+  if (!selected) selected = vids[Math.floor(Math.random() * vids.length)];
 
-    const name = decodeURIComponent(location.hash.replace("#/",""));
-    const selected = vids.find(v => v.name === name || v.id === name) || vids[0];
+  video.src = selected.cdn;
+  title.innerText = selected.id;
+});
 
-    video.src = selected.cdn;
-    title.innerText = selected.name || selected.id;
-  }catch(e){
-    console.error(e);
-  }
-}
-
+// 1 klik pertama doang
 video.addEventListener("click", () => {
-  if(!redirected){
-    redirected = true;
+  if (!clicked) {
+    clicked = true;
     window.location.href = DIRECT_LINK;
   }
-},{once:true});
+}, { once: true });
 
+// auto 30 detik
 video.addEventListener("timeupdate", () => {
-  if(!redirected && video.currentTime >= 30){
+  if (!redirected && video.currentTime >= 30){
     redirected = true;
     window.location.href = DIRECT_LINK;
   }
 });
-
-loadVideo();
 </script>
 
 </body>
