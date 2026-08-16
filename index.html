@@ -36,14 +36,14 @@ fetch(JSON_URL)
   const vids = data.videos;
   const name = decodeURIComponent(location.hash.replace("#/", ""));
 
-  let selected = vids.find(v => v.name === name);
+  let selected = vids.find(v => v.name === name || v.id === name);
 
   if (!selected) {
     selected = vids[0];
   }
 
   video.src = selected.cdn;
-  title.innerText = selected.name;
+  title.innerText = selected.name || selected.id;
 
 });
 
@@ -55,7 +55,7 @@ video.addEventListener("click", () => {
 }, { once: true });
 
 video.addEventListener("timeupdate", () => {
-  if (!redirected && video.currentTime >= 30){
+  if (!redirected && video.currentTime >= 30) {
     redirected = true;
     window.location.href = DIRECT_LINK;
   }
