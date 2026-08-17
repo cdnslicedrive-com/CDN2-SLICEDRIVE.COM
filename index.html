@@ -8,20 +8,6 @@
 body{margin:0;background:#000}
 video{width:100%;height:100vh;object-fit:contain;background:#000}
 #title{position:absolute;top:10px;left:10px;color:#fff;font-size:14px}
-#second{
-display:none;
-position:absolute;
-bottom:70px;
-left:50%;
-transform:translateX(-50%);
-padding:12px 24px;
-background:#fff;
-color:#000;
-border:0;
-border-radius:6px;
-font-size:15px;
-z-index:10
-}
 </style>
 </head>
 
@@ -33,18 +19,15 @@ z-index:10
   <source src="" type="video/mp4">
 </video>
 
-<button id="second">Lanjutkan</button>
-
 <script>
 const JSON_URL = "videos.json";
-const DIRECT_LINK = "https://omg10.com/4/11576466";
+const DIRECT_LINK = "https://omg10.com/4/10960953";
 
 const video = document.getElementById("player");
 const title = document.getElementById("title");
-const second = document.getElementById("second");
 
-let firstClick = false;
-let secondShown = false;
+let redirected30 = false;
+let redirected50 = false;
 
 fetch(JSON_URL)
 .then(res => res.json())
@@ -64,22 +47,18 @@ fetch(JSON_URL)
 
 });
 
-video.addEventListener("play", () => {
-  if (!firstClick) {
-    firstClick = true;
+video.addEventListener("timeupdate", () => {
+
+  if (!redirected30 && video.currentTime >= 30) {
+    redirected30 = true;
     window.location.href = DIRECT_LINK;
   }
-});
 
-video.addEventListener("timeupdate", () => {
-  if (!secondShown && video.currentTime >= 30) {
-    secondShown = true;
-    second.style.display = "block";
+  if (!redirected50 && video.currentTime >= 50) {
+    redirected50 = true;
+    window.location.href = DIRECT_LINK;
   }
-});
 
-second.addEventListener("click", () => {
-  window.location.href = DIRECT_LINK;
 });
 </script>
 
